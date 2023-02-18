@@ -34,7 +34,7 @@ end
 
 
 
-precompile(check_file, (String,))
+precompile(check_dir, (String,))
 precompile(fwrite, (DataFrame, String,))
 
 precompile(fread, (String,))
