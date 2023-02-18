@@ -1,5 +1,5 @@
 using Test
-using tidytable
+using Tidytable2
 
 # println(dirname(@__FILE__))
 # println(pwd())

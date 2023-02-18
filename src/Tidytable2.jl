@@ -1,4 +1,4 @@
-module tidytable
+module Tidytable2
 
 
 using DocStringExtensions: TYPEDSIGNATURES
@@ -14,4 +14,4 @@ include("subset.jl")
 include("IO.jl")
 
 
-end # module tidytable
+end # module Tidytable2
