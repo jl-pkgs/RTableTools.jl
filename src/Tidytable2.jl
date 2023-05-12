@@ -17,7 +17,7 @@ include("melt_list.jl")
 include("con_parse.jl")
 
 include("IO.jl")
-
+include("precompile.jl")
 
 
 

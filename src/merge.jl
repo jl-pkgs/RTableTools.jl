@@ -41,6 +41,3 @@ end
 
 # rename Duplicate variables in dt_merge
 rename_varsDup(x::AbstractString, vars_dup::Vector, suffix="_x") = x in vars_dup ? x * suffix : x
-
-
-precompile(dt_merge, (DataFrame, DataFrame))

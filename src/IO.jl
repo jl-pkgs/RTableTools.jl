@@ -31,11 +31,3 @@ fwrite(df::AbstractDataFrame, file::AbstractString; append=false, kw...) = begin
   dirname(file) |> check_dir
   CSV.write(file, df; append=append, kw...)
 end
-
-
-
-precompile(check_dir, (String,))
-precompile(fwrite, (DataFrame, String,))
-
-precompile(fread, (String,))
-precompile(fread, (DataFrame, String))
