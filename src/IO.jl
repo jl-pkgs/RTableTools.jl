@@ -14,7 +14,7 @@ end
 
 
 
-fread(file::AbstractString) = DataFrame(CSV.File(file))
+fread(file::AbstractString; header=true, kw...) = DataFrame(CSV.File(file; header, kw...))
 
 """
     fwrite(df, file; kw...)
