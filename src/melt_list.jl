@@ -15,7 +15,7 @@ function melt_list(list; kw...)
     end
   end
   ind = map(is_dataframe, list)
-  vcat(list[ind]...)
+  vcat(list[ind]...)[:, Cols(by, 1:end)]
 end
 
 

@@ -39,7 +39,7 @@ end
     # test for empty list
     push!(res, [])
     df3 = melt_list(res)
-    @test names(df2) == ["x", "prob", "id", "I"]
+    @test names(df2) == ["I", "x", "prob", "id"]
 end
 
 # @pipe d |> groupby(:y)
