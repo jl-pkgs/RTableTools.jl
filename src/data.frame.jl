@@ -35,3 +35,8 @@ datatable = dataframe
 #     datatable(; params...)
 # end
 const DF = dataframe;
+
+
+set_names(d::AbstractDataFrame, names) = rename!(d, names)
+
+export set_names

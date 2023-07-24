@@ -2,11 +2,6 @@ using PrecompileTools
 
 
 # precompile(check_dir, (String,))
-# precompile(fwrite, (DataFrame, String,))
-
-# precompile(fread, (String,))
-# precompile(fread, (DataFrame, String))
-# precompile(dt_merge, (DataFrame, DataFrame))
 
 @setup_workload begin
   # str = " hello world! hello world! "
@@ -31,6 +26,7 @@ using PrecompileTools
     f = "$(tempdir())/tmp.csv"
     # f = tempname()
     fwrite(dat, f)
+    rm(f)
     # fread(f)
   end
 end

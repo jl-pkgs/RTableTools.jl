@@ -17,7 +17,10 @@ include("melt_list.jl")
 include("con_parse.jl")
 
 include("IO.jl")
+include("expand_grid.jl")
+
 include("precompile.jl")
+
 
 
 
