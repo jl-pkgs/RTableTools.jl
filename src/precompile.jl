@@ -20,7 +20,7 @@ using PrecompileTools
 
     d = dt_merge(d1, d2, by="A", suffixes=["_tas", ".rh"])
     
-    @show pwd()
+    # @show pwd()
     f = joinpath(@__DIR__, "../data/temp_gridInfo.csv")
     dat = fread(f)
     f = "$(tempdir())/tmp.csv"

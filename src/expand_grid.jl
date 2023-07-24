@@ -74,7 +74,7 @@ julia> array2df(A, dims)
   10 │     2      4  a       0.839761
   11 │     1      3  b       0.99469
   12 │     2      4  c       0.451717
-````
+```
 """
 function array2df(A::AbstractArray, dims)
   _size = map(length, dims) |> values

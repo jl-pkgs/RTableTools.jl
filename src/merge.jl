@@ -16,8 +16,7 @@ d = dt_merge(d1, d2, by = "A", suffixes=["_tas", ".rh"])
 d[:, "B.rh"]
 ```
 
-seealso: [`leftjoin`](@ref), [`rightjoin`](@ref), [`innerjoin`](@ref), 
-    [`outerjoin`](@ref)
+seealso: `leftjoin`, `rightjoin`, `innerjoin`, `outerjoin`
 """
 function dt_merge(x::AbstractDataFrame, y::AbstractDataFrame; by=nothing,
   all=false, all_x=all, all_y=all, makeunique=true, suffixes=["_x", "_y"], kw...)

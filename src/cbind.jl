@@ -1,4 +1,5 @@
 using DataFrames
+using DataFrames: nrow, ncol
 
 DataFrames.nrow(x::AbstractArray) = size(x, 1)
 DataFrames.ncol(x::AbstractArray) = size(x, 2)
