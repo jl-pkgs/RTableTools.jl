@@ -27,9 +27,6 @@ include("precompile.jl")
 export rbind, cbind, abind, melt_list,
   fread, fwrite, dt_merge,
   @subset
-  is_dataframe,
-  as_dataframe, as_datatable,
-  as_matrix, nrow, ncol,
   DataFrame, DF, names,
   datatable, dataframe
 

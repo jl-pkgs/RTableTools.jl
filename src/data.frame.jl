@@ -39,4 +39,9 @@ const DF = dataframe;
 
 set_names(d::AbstractDataFrame, names) = rename!(d, names)
 
+
 export set_names
+export datatable, dataframe, 
+  is_dataframe,
+  as_dataframe, as_datatable,
+  as_matrix, nrow, ncol
