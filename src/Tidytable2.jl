@@ -18,9 +18,9 @@ include("con_parse.jl")
 
 include("IO.jl")
 include("expand_grid.jl")
+include("tools.jl")
 
 include("precompile.jl")
-
 
 
 
