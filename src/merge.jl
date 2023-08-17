@@ -12,13 +12,13 @@ rename_varsDup(x::AbstractString, vars_dup::Vector, suffix="_x") = x in vars_dup
 ```julia
 d1 = DataFrame(A=1:3, B=4:6, C=7:9)
 d2 = DataFrame(A=1:3, B=4:6, D=7:9)
-d = dt_merge(d1, d2, by = "A", suffixes=["_tas", ".rh"])
+d = merge(d1, d2, by = "A", suffixes=["_tas", ".rh"])
 d[:, "B.rh"]
 ```
 
 seealso: `leftjoin`, `rightjoin`, `innerjoin`, `outerjoin`
 """
-function dt_merge(x::AbstractDataFrame, y::AbstractDataFrame; by=nothing,
+function Base.merge(x::AbstractDataFrame, y::AbstractDataFrame; by=nothing,
   all=false, all_x=all, all_y=all, makeunique=true, suffixes=["_x", "_y"], kw...)
 
   if by === nothing
@@ -44,3 +44,5 @@ function dt_merge(x::AbstractDataFrame, y::AbstractDataFrame; by=nothing,
     outerjoin(x, y; kw2...)
   end
 end
+
+dt_merge = Base.merge

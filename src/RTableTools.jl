@@ -2,10 +2,11 @@ module RTableTools
 
 
 using DocStringExtensions: TYPEDSIGNATURES
-
 using DataFrames
 using CSV
+using Reexport
 
+@reexport using TidierData
 
 # include("wip/con_parse.jl")
 # include("wip/macro.jl")

@@ -19,7 +19,7 @@ precompile(melt_list, (Vector{DataFrame},))
     df1 = melt_list(res, id=1:4)
     df2 = melt_list(res)
 
-    d = dt_merge(d1, d2, by="A", suffixes=["_tas", ".rh"])
+    d = merge(d1, d2, by="A", suffixes=["_tas", ".rh"])
     
     # @show pwd()
     f = joinpath(@__DIR__, "../data/temp_gridInfo.csv")
