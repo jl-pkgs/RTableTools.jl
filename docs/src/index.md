@@ -18,11 +18,13 @@ Pkg.add(url="https://github.com/jl-spatial/RTableTools.jl")
 ## Functions
 
 ```@docs
+fread
 fwrite
-dt_merge
 ```
 
 ```@docs
+melt_list
+merge
 expand_grid
 array2df
 ```

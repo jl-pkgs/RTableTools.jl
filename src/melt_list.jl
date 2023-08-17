@@ -1,4 +1,7 @@
 # for data.frame by reference operation
+"""
+    melt_list(list; kw...)
+"""
 function melt_list(list; kw...)
   if length(kw) > 0
     by = keys(kw)[1]
@@ -17,5 +20,3 @@ function melt_list(list; kw...)
   ind = map(is_dataframe, list)
   vcat(list[ind]...)[:, Cols(by, 1:end)]
 end
-
-

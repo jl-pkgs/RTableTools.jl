@@ -13,6 +13,23 @@ function check_dir(indir; verbose=false)
 end
 
 
+
+"""
+    fread(file::AbstractString; header=true, kw...)  
+
+# Arguments
+- `file`: the csv file to read
+- `header`: whether the csv file has header?
+- `kw`: other parameters for `CSV.File`
+
+# Examaple
+```
+fread("a.csv")
+```
+"""
+fread(file::AbstractString; header=true, kw...) = DataFrame(CSV.File(file; header, kw...))
+
+
 """
     fwrite(df, file; kw...)
 
@@ -20,14 +37,9 @@ end
 df = DataFrame(A=1:3, B=4:6, C=7:9)
 fwrite(df, "a.csv")
 fwrite(df, "a.csv", append=true)
-
-fread("a.csv")
 ```
 """
 fwrite(df::AbstractDataFrame, file::AbstractString; append=false, kw...) = begin
   dirname(file) |> check_dir
   CSV.write(file, df; append=append, kw...)
 end
-
-
-fread(file::AbstractString; header=true, kw...) = DataFrame(CSV.File(file; header, kw...))
