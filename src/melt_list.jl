@@ -19,4 +19,3 @@ function melt_list(list; kw...)
 end
 
 
-precompile(melt_list, (Vector{DataFrame},))

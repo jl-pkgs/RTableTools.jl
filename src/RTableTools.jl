@@ -1,4 +1,4 @@
-module Tidytable2
+module RTableTools
 
 
 using DocStringExtensions: TYPEDSIGNATURES
@@ -7,14 +7,14 @@ using DataFrames
 using CSV
 
 
-include("macro.jl")
+# include("wip/con_parse.jl")
+# include("wip/macro.jl")
+
 include("cbind.jl")
 
 include("data.frame.jl")
 include("merge.jl")
 include("melt_list.jl")
-
-include("con_parse.jl")
 
 include("IO.jl")
 include("expand_grid.jl")
@@ -31,4 +31,4 @@ export rbind, cbind, abind, melt_list,
   datatable, dataframe
 
 
-end # module Tidytable2
+end # module RTableTools

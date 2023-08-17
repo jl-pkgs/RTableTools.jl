@@ -1,5 +1,5 @@
 using Test
-using Tidytable2
+using RTableTools
 using DataFrames
 
 # println(dirname(@__FILE__))
@@ -13,6 +13,8 @@ using DataFrames
 # include("test-Pipe.jl")
 include("test-dt.jl")
 include("test-dt_pipe.jl")
+include("test-cbind.jl")
+
 # include("test-list.jl")
 # include("test-date.jl")
 # include("test-apply.jl")

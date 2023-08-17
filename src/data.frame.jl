@@ -1,5 +1,13 @@
 import DataFrames: sort
 
+macro as_df(x)
+  name = string(x)
+  expr = :(DataFrame($name => $x))
+  esc(expr)
+end
+export @as_df;
+
+
 as_matrix(x::AbstractDataFrame) = Matrix(x)
 
 as_dataframe(x::AbstractDataFrame, args...) = x
@@ -43,5 +51,6 @@ set_names(d::AbstractDataFrame, names) = rename!(d, names)
 export set_names
 export datatable, dataframe, 
   is_dataframe,
+  @as_df,
   as_dataframe, as_datatable,
   as_matrix, nrow, ncol

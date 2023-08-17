@@ -2,6 +2,7 @@ using PrecompileTools
 
 
 # precompile(check_dir, (String,))
+precompile(melt_list, (Vector{DataFrame},))
 
 @setup_workload begin
   # str = " hello world! hello world! "

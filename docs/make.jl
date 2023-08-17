@@ -1,4 +1,4 @@
-using Documenter, Tidytable2
+using Documenter, RTableTools
 using DataFrames
 
 
@@ -10,7 +10,7 @@ CI = get(ENV, "CI", nothing) == "true"
 # We need to explicitly add all the extensions here
 makedocs(
   modules=[
-    Tidytable2
+    RTableTools
   ],
   format=Documenter.HTML(
     prettyurls=CI,
@@ -22,7 +22,7 @@ makedocs(
   #   "Potential Evapotranspiration models" => "PET.md",
   #   "Extreme Climate indexes" => "ExtremeClimate.md"
   # ],
-  sitename="Tidytable2.jl",
+  sitename="RTableTools.jl",
   strict=false,
   clean=false,
 )
@@ -31,5 +31,5 @@ makedocs(
 # Logging.disable_logging(Logging.BelowMinLevel)
 
 deploydocs(
-  repo="github.com/jl-spatial/Tidytable2.jl.git", 
+  repo="github.com/jl-spatial/RTableTools.jl.git", 
 )

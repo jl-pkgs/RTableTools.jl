@@ -1,4 +1,4 @@
-name = "Tidytable2"
+name = "RTableTools"
 uuid = "76227a05-389e-44bd-84ad-996dde4b1834"
 authors = ["Dongdong Kong <kongdd@users.noreply.github.com>"]
 version = "0.1.0"

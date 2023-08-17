@@ -36,12 +36,6 @@ macro subset(d, con, verbose=false)
   esc(Meta.parse(expr))
 end
 
-macro as_df(x)
-  name = string(x)
-  expr = :(DataFrame($name => $x))
-  esc(expr)
-end
 
 
 export @subset
-export @as_df;

@@ -13,9 +13,6 @@ function check_dir(indir; verbose=false)
 end
 
 
-
-fread(file::AbstractString; header=true, kw...) = DataFrame(CSV.File(file; header, kw...))
-
 """
     fwrite(df, file; kw...)
 
@@ -31,3 +28,6 @@ fwrite(df::AbstractDataFrame, file::AbstractString; append=false, kw...) = begin
   dirname(file) |> check_dir
   CSV.write(file, df; append=append, kw...)
 end
+
+
+fread(file::AbstractString; header=true, kw...) = DataFrame(CSV.File(file; header, kw...))
