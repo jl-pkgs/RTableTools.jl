@@ -7,8 +7,6 @@ using CSV
 using Reexport
 
 @reexport using TidierData
-@reexport using Pipe: @pipe
-
 # include("wip/con_parse.jl")
 # include("wip/macro.jl")
 
