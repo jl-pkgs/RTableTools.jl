@@ -19,6 +19,7 @@ include("melt_list.jl")
 include("IO.jl")
 include("expand_grid.jl")
 include("tools.jl")
+include("tools_Tidier.jl")
 
 include("precompile.jl")
 
