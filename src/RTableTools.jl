@@ -25,7 +25,7 @@ include("precompile.jl")
 
 
 
-export rbind, cbind, abind, melt_list,
+export rbind, cbind, melt_list,
   fread, fwrite, dt_merge,
   @subset
   DataFrame, DF, names,

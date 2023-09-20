@@ -5,7 +5,7 @@ using DataFrames: nrow, ncol, hcat
 DataFrames.nrow(x::AbstractArray) = size(x, 1)
 DataFrames.ncol(x::AbstractArray) = size(x, 2)
 
-abind(args...; along=3) = cat(args..., dims=along)
+# abind(args...; along=3) = cat(args..., dims=along)
 
 # cbind = hcat # not work
 # cbind(args...) = cat(args..., dims = 2)
