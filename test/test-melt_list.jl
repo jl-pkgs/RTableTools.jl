@@ -9,16 +9,26 @@
   @test names(d2) == ["x", "prob"]
 
   ## for data.frame melt_list
-  res = []
+  l = []
   for i = 1:4
-    push!(res, d)
+    push!(l, deepcopy(d)) # need to deep copy
   end
+  df1 = melt_list(l, id=1:4)
+  # l = [d, d, d, d]
 
-  df1 = melt_list(res, id=1:4)
-  df2 = melt_list(res)
+  df1 = melt_list(l, id=1:4)
+  @test unique(df1.id) == [1, 2, 3, 4]
+  
+  df2 = melt_list(l)
+  @test unique(df2.I) == [1, 2, 3, 4]
+
+  ## test for multi
+  df3 = melt_list(l, id=1:4, probs=[0.9, 0.95, 0.99, 0.999]);
+  df3 = melt_list(l, id=1:4, probs=0.9)
+
   # test for empty list
-  push!(res, [])
-  df3 = melt_list(res)
+  push!(l, [])
+  df3 = melt_list(l)
   @test names(df2) == ["I", "x", "prob", "id"]
 end
 
@@ -38,7 +48,7 @@ end
 # @testset "@subset" begin
 #     x = 1:2
 #     y = 2
-#     dt = datatable(; x, y=[2, 3], z=[1, 3])
+#     dt = data.table(; x, y=[2, 3], z=[1, 3])
 
 #     @test typeof(dt) == DataFrame
 #     @test @subset(dt, y == 2) |> nrow == 1

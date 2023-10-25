@@ -27,30 +27,8 @@ as_datatable = as_dataframe
 
 is_dataframe(d) = d isa DataFrame
 
-# for data.frame by reference operation
-function dataframe(; kw...)
-  DataFrame(pairs(kw))
-end
-datatable = dataframe
 
-# function list(; kw...)
-#     Dict(pairs(kw))
-# end
-
-#! This version not work
-# function datatable(args...; kw...)
-#     params = args..., kw...
-#     datatable(; params...)
-# end
-const DF = dataframe;
-
-
-set_names(d::AbstractDataFrame, names) = rename!(d, names)
-
-
-export set_names
-export datatable, dataframe, 
-  is_dataframe,
+export is_dataframe,
   @as_df,
   as_dataframe, as_datatable,
   as_matrix, nrow, ncol

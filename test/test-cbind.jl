@@ -1,7 +1,7 @@
 using RTableTools
 using DataFrames
 
-df = datatable(; id=1:10, group=repeat([1, 2], 5), age=12)
+df = data.table(; id=1:10, group=repeat([1, 2], 5), age=12)
 mat = as_matrix(df)
 
 @testset "cbind" begin

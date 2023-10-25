@@ -14,7 +14,7 @@ precompile(melt_list, (Vector{DataFrame},))
   res = []
   map(i -> push!(res, d1), 1:4)
 
-  # d = datatable(; x=1:4)
+  # d = data.table(; x=1:4)
   @compile_workload begin
     df1 = melt_list(res, id=1:4)
     df2 = melt_list(res)
