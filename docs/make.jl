@@ -23,7 +23,7 @@ makedocs(
   #   "Extreme Climate indexes" => "ExtremeClimate.md"
   # ],
   sitename="RTableTools.jl",
-  strict=false,
+  warnonly=true,
   clean=false,
 )
 

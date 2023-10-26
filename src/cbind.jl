@@ -1,9 +1,4 @@
-using DataFrames
-using DataFrames: nrow, ncol, hcat
-
-
-DataFrames.nrow(x::AbstractArray) = size(x, 1)
-DataFrames.ncol(x::AbstractArray) = size(x, 2)
+using DataFrames: hcat
 
 # abind(args...; along=3) = cat(args..., dims=along)
 
@@ -12,14 +7,14 @@ DataFrames.ncol(x::AbstractArray) = size(x, 2)
 cbind(args...; kw...) = hcat(args...; kw...)
 cbind(x) = x
 cbind(x::AbstractDataFrame, y::Union{AbstractDataFrame,AbstractVecOrMat}) =
-  hcat(as_dataframe(x), as_dataframe(y); makeunique=true)
+  hcat(as_DT(x), as_DT(y); makeunique=true)
 
 cbind(x::AbstractVecOrMat, y::AbstractDataFrame; kw...) =
-  cbind(as_dataframe(x), y; kw...)
+  cbind(as_DT(x), y; kw...)
 
 # by reference
 function cbind(x::AbstractDataFrame, args...; kw...)
-  x = as_dataframe(x)
+  x = as_DT(x)
   n = length(kw)
   if n > 0
     vars = keys(kw)
@@ -53,15 +48,15 @@ rbind(args...; kw...) = vcat(args...; kw...)
 # rbind(x::DataFrame,
 #     y::Union{DataFrame,AbstractVecOrMat}; kw...) = begin
 #     # @assert (ncol(x) == ncol(y))
-#     x = as_dataframe(x)
-#     y = as_dataframe(y, names(x))
+#     x = as_DT(x)
+#     y = as_DT(y, names(x))
 #     vcat(x, y; kw...)
 # end
 
-# rbind(x::AbstractVecOrMat, y::DataFrame; kw...) = rbind(as_dataframe(x, names(y)), y; kw...)
+# rbind(x::AbstractVecOrMat, y::DataFrame; kw...) = rbind(as_DT(x, names(y)), y; kw...)
 
 # function rbind(x::DataFrame, args...; kw...)
-#     x = as_dataframe(x)
+#     x = as_DT(x)
 #     if length(args) == 0
 #         x
 #     elseif length(args) == 1

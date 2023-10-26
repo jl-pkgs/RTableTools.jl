@@ -12,7 +12,6 @@ using Reexport
 
 include("data.table.jl")
 include("cbind.jl")
-include("data.frame.jl")
 
 include("merge.jl")
 include("melt_list.jl")

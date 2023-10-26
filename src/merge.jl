@@ -2,8 +2,8 @@ import DataFrames: leftjoin, rightjoin, innerjoin, outerjoin
 
 
 # rename Duplicate variables
-rename_varsDup(x::AbstractString, vars_dup::Vector, suffix="_x") = x in vars_dup ? x * suffix : x
-
+rename_vars_duplicated(x::AbstractString, vars_dup::Vector, suffix="_x") = 
+  x in vars_dup ? x * suffix : x
 
 """
     $(TYPEDSIGNATURES)
@@ -27,8 +27,8 @@ function Base.merge(x::AbstractDataFrame, y::AbstractDataFrame; by=nothing,
   by = String.(by) # Symbol not work in `setdiff`
 
   vars_dup = intersect(setdiff(names(x), by), setdiff(names(y), by))
-  rename_x(x) = rename_varsDup(x, vars_dup, suffixes[1])
-  rename_y(x) = rename_varsDup(x, vars_dup, suffixes[2])
+  rename_x(x) = rename_vars_duplicated(x, vars_dup, suffixes[1])
+  rename_y(x) = rename_vars_duplicated(x, vars_dup, suffixes[2])
   kw2 = (;kw..., on=by, makeunique, renamecols=rename_x => rename_y)
   
   if !all
