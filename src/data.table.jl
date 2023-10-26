@@ -36,9 +36,9 @@ end
 end
 
 # only for vector
-macro as_df(x)
+macro as_DF(x)
   name = string(x)
-  expr = :(DataFrame($name => $x))
+  expr = :(as.data.frame($x, $name))
   esc(expr)
 end
 
@@ -49,12 +49,20 @@ function as.data.frame(x::Dict)
   sort(d, :key)
 end
 
-as.data.frame(x::AbstractDataFrame, args...) = x
-as.data.frame(x::AbstractVector) = @as_df(x)
-as.data.frame(x::AbstractMatrix) = DataFrame(x, :auto)
+# 未定义的部分
+as.data.frame(x, kw...) = x
+as.data.frame(x::AbstractVector) = DataFrame(:x => x)
+as.data.frame(x::AbstractVector, name) = DataFrame(name => x)
 
-as.data.frame(x::AbstractVecOrMat, names::AbstractVector; kw...) =
-  DataFrame(x, names; kw...)
+as.data.frame(x::AbstractMatrix) = DataFrame(x, :auto)
+function as.data.frame(x::AbstractMatrix, names)
+  if ncol(x) == length(names)
+    DataFrame(x, names)
+  else
+    DataFrame(x, :auto)
+  end
+end
+  
 
 as.data.table = as.data.frame
 
@@ -81,7 +89,7 @@ end
 
 set_names(d::AbstractDataFrame, names) = rename!(d, names)
 
-export @as_df;
+export @as_DF;
 export set_names, get_names
 export DT, DF, as_DF, as_DT
 export data, as, is
