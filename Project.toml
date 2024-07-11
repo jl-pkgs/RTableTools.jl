@@ -18,7 +18,7 @@ DocStringExtensions = "0.9"
 PrecompileTools = "1.1, 1.2"
 RDatasets = "0.7"
 Reexport = "1.2"
-TidierData = "0.13, 0.14, 0.15, 1"
+TidierData = "0.14, 0.15, 0.16, 1"
 julia = "1.9, 1.10"
 
 [extras]
