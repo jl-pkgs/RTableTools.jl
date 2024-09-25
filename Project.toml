@@ -13,7 +13,7 @@ TidierData = "fe2206b3-d496-4ee9-a338-6a095c4ece80"
 
 [compat]
 CSV = "0.10"
-DataFrames = "1.5, 1.6"
+DataFrames = "1.5, 1.6, 1.7"
 DocStringExtensions = "0.9"
 PrecompileTools = "1.1, 1.2"
 RDatasets = "0.7"
