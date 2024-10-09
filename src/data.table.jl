@@ -8,6 +8,7 @@ DataFrames.ncol(x::AbstractArray) = size(x, 2)
 
 ## module: data ================================================================
 module data
+global table, frame
 end
 data.table = DataFrame
 data.frame = DataFrame
@@ -31,6 +32,7 @@ module as
 function matrix end
 
 module data
+global table
 function frame end
 end
 end
@@ -62,7 +64,7 @@ function as.data.frame(x::AbstractMatrix, names)
     DataFrame(x, :auto)
   end
 end
-  
+
 
 as.data.table = as.data.frame
 
