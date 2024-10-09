@@ -8,10 +8,13 @@ DataFrames.ncol(x::AbstractArray) = size(x, 2)
 
 ## module: data ================================================================
 module data
-global table, frame
+
+import DataFrames: DataFrame
+
+const table = DataFrame
+const frame = DataFrame
+
 end
-data.table = DataFrame
-data.frame = DataFrame
 
 const DT = data.table;
 const DF = data.table;
@@ -29,12 +32,18 @@ const DF = data.table;
 ## module: as ==================================================================
 module as
 
+
 function matrix end
 
+
 module data
-global table
-function frame end
+
+global table       # as.data.table
+function frame end # as.data.frame
+
 end
+
+
 end
 
 # only for vector
@@ -68,8 +77,8 @@ end
 
 as.data.table = as.data.frame
 
-as_DT = as.data.table
-as_DF = as.data.frame
+const as_DT = as.data.table
+const as_DF = as.data.frame
 
 ## MODULE: IS ==================================================================
 module is
