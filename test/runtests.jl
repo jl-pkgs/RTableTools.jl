@@ -1,6 +1,5 @@
-using Test
-using RTableTools
-using DataFrames
+using RTableTools, DataFrames, Test
+import RTableTools: getDataType
 
 # println(dirname(@__FILE__))
 # println(pwd())
@@ -24,3 +23,19 @@ include("test-cbind.jl")
 # include("test_whittaker.jl")
 # include("test-lambda_init.jl")
 # end
+
+
+@testset "replace_missing!" begin
+  x = [1, 2, 3, missing]
+  y = [1, 2, 3., missing]
+
+  d = DataFrame(; x, y)
+  replace_missing!(d)
+  @test eltype(d.x) == Union{Missing,Int64}
+  @test eltype(d.y) == Float64
+
+  d = DataFrame(; x, y)
+  replace_missing!(d, 0) ## 整型无NaN
+  @test eltype(d.x) == Int64
+  @test eltype(d.y) == Float64
+end
