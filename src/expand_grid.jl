@@ -90,4 +90,54 @@ function array2df(A::AbstractArray, dims)
 end
 
 
+"""
+    df2array(df, dim_cols, val_col)
+
+Convert a DataFrame to an N-dimensional array.
+
+# Arguments
+- `df::DataFrame`: The input DataFrame.
+- `dim_cols::Vector{Symbol}`: The columns to be used as dimensions.
+- `val_col::Symbol`: The column to be used as the value.
+
+# Return
+An N-dimensional array.
+
+# Examples
+```julia
+julia> df = DataFrame(x = [1, 1, 2, 2], y = [3, 4, 3, 4], value = [0.1, 0.2, 0.3, 0.4]);
+julia> df2array(df, [:x, :y], :value)
+2×2 Array{Float64,2}:
+ 0.1  0.2
+ 0.3  0.4
+```
+"""
+function df2array(df::DataFrame, dim_cols::Vector{S}, val_col::S) where {S<:Union{Symbol, String}}
+  # 1. 原来的维度值、大小和映射表
+  dim_values = [sort(unique(df[!, col])) for col in dim_cols]
+  dims_size = length.(dim_values)
+  maps = [Dict(v => i for (i, v) in enumerate(vals)) for vals in dim_values]
+  
+  # 2. 输出数组
+  T = eltype(df[!, val_col])
+  data = Array{T}(undef, dims_size...)
+  
+  # 3. 直接拿出列向量，避免 eachrow 的开销
+  colvecs = [df[!, col] for col in dim_cols]
+  valvec = df[!, val_col]
+  nd = length(dim_cols)
+  
+  # 4. 用 ntuple+CartesianIndex + @inbounds 索引赋值，零分配
+  @inbounds for i in eachindex(valvec)
+    idxs = ntuple(j -> maps[j][colvecs[j][i]], nd)
+    data[CartesianIndex(idxs)] = valvec[i]
+  end
+
+  dims = NamedTuple(dim_cols, dim_values)
+  dims, data
+end
+
+
+
 export expand_grid, array2df
+export df2array

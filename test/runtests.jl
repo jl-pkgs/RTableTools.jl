@@ -24,6 +24,18 @@ include("test-cbind.jl")
 # include("test-lambda_init.jl")
 # end
 
+@testset "array2df" begin
+  dims = (x=1:2, y=[3, 4], z=["a", "b", "c"])
+  A = rand(2, 2, 3)
+  d = array2df(A, dims)
+
+  _names = [:x, :y, :z]
+  _dims, _A = df2array(d, [:x, :y, :z], :value)
+  _dims, _A = df2array(d, string.([:x, :y, :z]), "value")
+  @test _A == A
+  @test _dims == dims
+end
+
 
 @testset "replace_missing!" begin
   x = [1, 2, 3, missing]

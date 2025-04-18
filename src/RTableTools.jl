@@ -9,6 +9,7 @@ using Reexport
 @reexport using TidierData
 # include("wip/con_parse.jl")
 # include("wip/macro.jl")
+include("tools.jl")
 
 include("data.table.jl")
 include("cbind.jl")
@@ -18,7 +19,6 @@ include("melt_list.jl")
 
 include("IO.jl")
 include("expand_grid.jl")
-include("tools.jl")
 include("missing.jl")
 include("map.jl")
 
