@@ -6,7 +6,7 @@ using DataFrames
 using CSV
 using Reexport
 
-@reexport using TidierData
+# @reexport using TidierData
 # include("wip/con_parse.jl")
 # include("wip/macro.jl")
 include("tools.jl")
