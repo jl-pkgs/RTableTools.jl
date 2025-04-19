@@ -112,31 +112,31 @@ julia> df2array(df, [:x, :y], :value)
  0.3  0.4
 ```
 """
-function df2array(df::DataFrame, dim_cols::Vector{S}, val_col::S) where {S<:Union{Symbol, String}}
+function df2array(df::DataFrame, dim_cols::Vector{S}, val_col::S) where {S<:Union{Symbol,String}}
   # 1. 原来的维度值、大小和映射表
   dim_values = [sort(unique(df[!, col])) for col in dim_cols]
   dims_size = length.(dim_values)
   maps = [Dict(v => i for (i, v) in enumerate(vals)) for vals in dim_values]
-  
+
   # 2. 输出数组
   T = eltype(df[!, val_col])
   data = Array{T}(undef, dims_size...)
-  
+
   # 3. 直接拿出列向量，避免 eachrow 的开销
   colvecs = [df[!, col] for col in dim_cols]
   valvec = df[!, val_col]
   nd = length(dim_cols)
-  
-  # 4. 用 ntuple+CartesianIndex + @inbounds 索引赋值，零分配
-  @inbounds for i in eachindex(valvec)
-    idxs = ntuple(j -> maps[j][colvecs[j][i]], nd)
-    data[CartesianIndex(idxs)] = valvec[i]
-  end
 
+  # 4. 用 ntuple+CartesianIndex + @inbounds 索引赋值，零分配
+  Threads.@threads for i in eachindex(valvec)
+    # idxs = @views ntuple(j -> maps[j][colvecs[j][i]], nd)
+    idxs = ntuple(j -> maps[j][colvecs[j][i]], nd)
+    # data[CartesianIndex(idxs)] = valvec[i]
+    data[idxs...] = valvec[i]
+  end
   dims = NamedTuple(dim_cols, dim_values)
   dims, data
 end
-
 
 
 export expand_grid, array2df
