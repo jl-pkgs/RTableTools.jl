@@ -42,12 +42,12 @@ end
   y = [1, 2, 3., missing]
 
   d = DataFrame(; x, y)
-  replace_missing!(d)
+  replace_missing!(d) # y nan
   @test eltype(d.x) == Union{Missing,Int64}
   @test eltype(d.y) == Float64
 
   d = DataFrame(; x, y)
-  replace_missing!(d, 0) ## 整型无NaN
-  @test eltype(d.x) == Int64
-  @test eltype(d.y) == Float64
+  replace_missing!(d, UInt8(0)) ## 整型无NaN
+  @test eltype(d.x) == UInt8
+  @test eltype(d.y) == Union{Missing,Float64}
 end

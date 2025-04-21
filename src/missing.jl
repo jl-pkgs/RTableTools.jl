@@ -43,7 +43,9 @@ function getDataType(x)
 end
 
 function replace_missing!(df::AbstractDataFrame, replacement::T=NaN) where {T<:Real}
-  TYPE = T <: Integer ? Real : AbstractFloat
+  TYPE = Real
+  T <: Integer && (TYPE = Integer)
+  T <: AbstractFloat && (TYPE = AbstractFloat)
 
   # colnames = names(df)
   # num_cols = [name for name in colnames if getDataType(df[!, name]) <: Number]
@@ -52,7 +54,7 @@ function replace_missing!(df::AbstractDataFrame, replacement::T=NaN) where {T<:R
     type = getDataType(x)
 
     if type <: TYPE
-      df[!, col] = drop_missing(x, replacement)
+      df[!, col] = T.(drop_missing(x, replacement))
     end
   end
   df

@@ -112,15 +112,15 @@ julia> df2array(df, [:x, :y], :value)
  0.3  0.4
 ```
 """
-function df2array(df::DataFrame, dim_cols::Vector{S}, val_col::S) where {S<:Union{Symbol,String}}
+function df2array(df::DataFrame, dim_cols::Vector{S}, val_col::S; type=nothing) where {S<:Union{Symbol,String}}
   # 1. 原来的维度值、大小和映射表
   dim_values = [sort(unique(df[!, col])) for col in dim_cols]
   dims_size = length.(dim_values)
   maps = [Dict(v => i for (i, v) in enumerate(vals)) for vals in dim_values]
 
   # 2. 输出数组
-  T = eltype(df[!, val_col])
-  data = Array{T}(undef, dims_size...)
+  isnothing(type) && (type = eltype(df[!, val_col]))
+  data = Array{type}(undef, dims_size...)
 
   # 3. 直接拿出列向量，避免 eachrow 的开销
   colvecs = [df[!, col] for col in dim_cols]
