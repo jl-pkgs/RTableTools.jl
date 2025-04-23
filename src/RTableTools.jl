@@ -21,11 +21,12 @@ include("IO.jl")
 include("expand_grid.jl")
 include("missing.jl")
 include("map.jl")
-
 include("precompile.jl")
 
+rbindlist(list::Vector) = vcat(list...)
 
-export rbind, cbind, melt_list,
+
+export rbindlist, rbind, cbind, melt_list,
   fread, fwrite, dt_merge,
   @subset
   DataFrame, names
