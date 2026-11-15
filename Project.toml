@@ -1,9 +1,10 @@
 name = "RTableTools"
 uuid = "76227a05-389e-44bd-84ad-996dde4b1834"
+version = "0.1.7"
 authors = ["Dongdong Kong <kongdd@users.noreply.github.com>"]
-version = "0.1.6"
 
 [deps]
+Arrow = "69666777-d1a9-59fb-9406-91d4454c9d45"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
@@ -11,6 +12,7 @@ PrecompileTools = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 
 [compat]
+Arrow = "2.8.1"
 CSV = "0.10, 1.0"
 DataFrames = "1.6, 1.7"
 DocStringExtensions = "0.9, 0.10"

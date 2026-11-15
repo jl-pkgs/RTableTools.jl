@@ -1,4 +1,4 @@
-import CSV
+import Arrow, CSV
 
 
 # whether directory exist? If not, create it.
@@ -15,6 +15,8 @@ end
 is_wsl() = Sys.islinux() && isfile("/mnt/c/Windows/System32/cmd.exe")
 is_windows() = Sys.iswindows()
 is_linux() = Sys.islinux()
+
+file_ext(file::AbstractString) = Val(Symbol(lowercase(splitext(file)[2])[2:end]))
 
 """
     path_mnt(path = ".")
@@ -39,20 +41,26 @@ end
     fread(file::AbstractString; header=true, kw...)  
 
 # Arguments
-- `file`: the csv file to read
-- `header`: whether the csv file has header?
-- `kw`: other parameters for `CSV.File`
+- `file`: a CSV or Arrow file (identified by the `.arrow` extension)
+- `header`: whether the CSV file has a header
+- `kw`: other parameters for `CSV.File` or `Arrow.Table`
 
 # Examaple
 ```
 fread("a.csv")
 ```
 """
-fread(file::AbstractString; header=true, kw...) = DataFrame(CSV.File(file; header, kw...))
+read_table(file, ::Val; header=true, kw...) = CSV.File(file; header, kw...)
+read_table(file, ::Val{:arrow}; header=true, kw...) = Arrow.Table(file; kw...)
+
+fread(file::AbstractString; kw...) = DataFrame(read_table(file, file_ext(file); kw...))
 
 
 """
     fwrite(df, file; kw...)
+
+Write CSV or Arrow according to the file extension. Arrow does not support `append=true` here.
+Additional keywords are passed to `CSV.write` or `Arrow.write`.
 
 ```julia
 df = DataFrame(A=1:3, B=4:6, C=7:9)
@@ -60,7 +68,13 @@ fwrite(df, "a.csv")
 fwrite(df, "a.csv", append=true)
 ```
 """
-fwrite(df::AbstractDataFrame, file::AbstractString; append=false, kw...) = begin
+write_table(df, file, ::Val; append=false, kw...) = CSV.write(file, df; append, kw...)
+function write_table(df, file, ::Val{:arrow}; append=false, kw...)
+  append && throw(ArgumentError("append=true is not supported for Arrow files"))
+  Arrow.write(file, df; kw...)
+end
+
+function fwrite(df::AbstractDataFrame, file::AbstractString; kw...)
   dirname(file) |> check_dir
-  CSV.write(path_mnt(file), df; append=append, kw...)
+  write_table(df, path_mnt(file), file_ext(file); kw...)
 end
