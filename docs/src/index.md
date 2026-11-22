@@ -14,12 +14,11 @@ using Pkg
 Pkg.add(url="https://github.com/jl-spatial/RTableTools.jl")
 ```
 
-
 ## Functions
 
 ```@docs
-fread
-fwrite
+auto_read
+auto_write
 ```
 
 ```@docs

@@ -27,7 +27,7 @@ rbindlist(list::Vector) = vcat(list...)
 
 
 export rbindlist, rbind, cbind, melt_list,
-  fread, fwrite, dt_merge,
+  auto_read, auto_write, dt_merge,
   @subset
   DataFrame, names
 

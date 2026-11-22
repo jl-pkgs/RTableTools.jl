@@ -10,7 +10,7 @@ precompile(melt_list, (Vector{DataFrame},))
   # w = rand(10)
   d1 = DataFrame(A=1:3, B=4:6, C=7:9)
   d2 = DataFrame(A=1:3, B=4:6, D=7:9)
-  
+
   res = []
   map(i -> push!(res, d1), 1:4)
 
@@ -23,11 +23,11 @@ precompile(melt_list, (Vector{DataFrame},))
     
     # @show pwd()
     f = joinpath(@__DIR__, "../data/temp_gridInfo.csv")
-    dat = fread(f)
+    dat = auto_read(f)
     f = "$(tempdir())/tmp.csv"
     # f = tempname()
-    fwrite(dat, f)
+    auto_write(dat, f)
     rm(f)
-    # fread(f)
+    # auto_read(f)
   end
 end

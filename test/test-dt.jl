@@ -19,20 +19,20 @@ end
     df = DataFrame(A=[1, missing, 3], B=["a", "b", "c"])
     for ext in ("arrow", "ARROW")
       file = joinpath(dir, "nested", "data.$ext")
-      fwrite(df, file; compress=:zstd)
-      @test isequal(fread(file), df)
-      @test_throws ArgumentError fwrite(df, file; append=true)
-      @test isequal(fread(file), df)
+      auto_write(df, file; compress=:zstd)
+      @test isequal(auto_read(file), df)
+      @test_throws ArgumentError auto_write(df, file; append=true)
+      @test isequal(auto_read(file), df)
     end
   end
 end
 
-@testset "fwrite" begin
+@testset "auto_write" begin
   df = DataFrame(A=1:3, B=4:6, C=7:9)
-  fwrite(df, "a.csv")
-  fwrite(df, "a.csv", append=true)
+  auto_write(df, "a.csv")
+  auto_write(df, "a.csv", append=true)
 
-  df = fread("a.csv")
+  df = auto_read("a.csv")
   @test nrow(df) == 6
   rm("a.csv")
 end

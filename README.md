@@ -7,8 +7,10 @@
 
 > Dongdong Kong
 
-`RTableTools.jl` implements the function of `merge`, `cbind`, `fread`, `fwrite`, 
-`expand_grid`, and other frequent used functions in R package [`data.table`](https://github.com/Rdatatable/data.table). 
+`RTableTools.jl` implements the function of `merge`, `cbind`, `auto_read`, `auto_write`,
+`expand_grid`, and other frequent used functions in R package [`data.table`](https://github.com/Rdatatable/data.table).
+
+`auto_read` and `auto_write` support two formats: CSV (`.csv`) and Arrow (`.arrow`). The file extension determines the format.
 
 ## Installation
 

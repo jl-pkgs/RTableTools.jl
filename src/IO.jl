@@ -1,4 +1,5 @@
 import Arrow, CSV
+export auto_read, auto_write, fread, fwrite
 
 
 # whether directory exist? If not, create it.
@@ -38,7 +39,7 @@ end
 
 
 """
-    fread(file::AbstractString; header=true, kw...)  
+    auto_read(file::AbstractString; header=true, kw...)  
 
 # Arguments
 - `file`: a CSV or Arrow file (identified by the `.arrow` extension)
@@ -47,34 +48,38 @@ end
 
 # Examaple
 ```
-fread("a.csv")
+auto_read("a.csv")
 ```
 """
-read_table(file, ::Val; header=true, kw...) = CSV.File(file; header, kw...)
+read_table(file, ::Val{:csv}; header=true, kw...) = CSV.File(file; header, kw...)
 read_table(file, ::Val{:arrow}; header=true, kw...) = Arrow.Table(file; kw...)
 
-fread(file::AbstractString; kw...) = DataFrame(read_table(file, file_ext(file); kw...))
+auto_read(file::AbstractString; kw...) = DataFrame(read_table(file, file_ext(file); kw...))
 
 
 """
-    fwrite(df, file; kw...)
+    auto_write(df, file; kw...)
 
 Write CSV or Arrow according to the file extension. Arrow does not support `append=true` here.
 Additional keywords are passed to `CSV.write` or `Arrow.write`.
 
 ```julia
 df = DataFrame(A=1:3, B=4:6, C=7:9)
-fwrite(df, "a.csv")
-fwrite(df, "a.csv", append=true)
+auto_write(df, "a.csv")
+auto_write(df, "a.csv", append=true)
 ```
 """
-write_table(df, file, ::Val; append=false, kw...) = CSV.write(file, df; append, kw...)
+write_table(df, file, ::Val{:csv}; append=false, kw...) = CSV.write(file, df; append, kw...)
+
 function write_table(df, file, ::Val{:arrow}; append=false, kw...)
   append && throw(ArgumentError("append=true is not supported for Arrow files"))
   Arrow.write(file, df; kw...)
 end
 
-function fwrite(df::AbstractDataFrame, file::AbstractString; kw...)
+function auto_write(df::AbstractDataFrame, file::AbstractString; kw...)
   dirname(file) |> check_dir
   write_table(df, path_mnt(file), file_ext(file); kw...)
 end
+
+fread = auto_read
+fwrite = auto_write
